@@ -33,6 +33,7 @@ final class PhotoListViewController: UIViewController {
     super.viewDidLoad()
     setupUI()
     bindViewModel()
+    setupDismissKeyboardGesture()
     viewModel.loadPhotos(isRefresh: true) // Load ảnh ban đầu
   }
   
@@ -102,6 +103,16 @@ final class PhotoListViewController: UIViewController {
         }
       }
     }
+  }
+  
+  private func setupDismissKeyboardGesture() {
+      let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+      tapGesture.cancelsTouchesInView = false
+      view.addGestureRecognizer(tapGesture)
+  }
+
+  @objc private func dismissKeyboard() {
+      view.endEditing(true)
   }
   
   @objc private func refreshData() {
